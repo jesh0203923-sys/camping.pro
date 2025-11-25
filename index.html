@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Camping Prox</title>
+  <title>Camping Proxy</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <h2>營地列表</h2>
   <ul id="camp-list"></ul>
 
-  <!-- Supabase SDK -->
+  <!-- 正確的 Supabase SDK -->
   <script type="module">
     import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    const SUPABASE_URL = "https://zwxgdwmboukhedgssppo.supabase.co";
+    const SUPABASE_URL = "https://zwmqbenhockdsgsppgo.supabase.co";
     const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3eGdkd2JtYm91aGtlZGdzcHBvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NTY2NzUsImV4cCI6MjA3OTIzMjY3NX0.U17RfPquN9I4twz36nqv1LWxJ2T0qy9_5xgc32hsnO0";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInN1YiI6IjI3In0.q36dK23tyM1gaGzIldzGhb1vIiwicm8sS2SI6mFUb241clCPYXQQi0JE3W4M2NYZ2NUSImY4CElH6jA3OTIzMjY3N0U.1l7F9uN5l4twz36NQy1LkkJ2T8Qy9_Sxgc23hsn00E";
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -24,18 +25,19 @@
       const { data, error } = await supabase.from("campgrounds").select("*");
 
       if (error) {
-        console.error("讀取失敗:", error);
+        console.error("讀取失敗：", error);
         return;
       }
 
       const list = document.getElementById("camp-list");
       list.innerHTML = data
-        .map((c) => `<li>${c.name}（${c.location}）</li>`)
+        .map(c => `<li>${c.name}（${c.location}）</li>`)
         .join("");
     }
 
     loadCampgrounds();
   </script>
+
 </body>
 </html>
 
