@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Camping Pro</title>
+  <title>Camping Prox</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -12,18 +12,16 @@
 
   <!-- Supabase SDK -->
   <script type="module">
-    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    const SUPABASE_URL = "https://zwgdbwmbouhkedgsppo.supabase.co";
+    const SUPABASE_URL = "https://zwxgdwmboukhedgssppo.supabase.co";
     const SUPABASE_ANON_KEY =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...（你的 key ）";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3eGdkd2JtYm91aGtlZGdzcHBvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NTY2NzUsImV4cCI6MjA3OTIzMjY3NX0.U17RfPquN9I4twz36nqv1LWxJ2T0qy9_5xgc32hsnO0";
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     async function loadCampgrounds() {
-      const { data, error } = await supabase
-        .from("campgrounds")
-        .select("*");
+      const { data, error } = await supabase.from("campgrounds").select("*");
 
       if (error) {
         console.error("讀取失敗:", error);
@@ -31,12 +29,15 @@
       }
 
       const list = document.getElementById("camp-list");
-      list.innerHTML = data.map(c => `<li>${c.name} - ${c.location}</li>`).join("");
+      list.innerHTML = data
+        .map((c) => `<li>${c.name}（${c.location}）</li>`)
+        .join("");
     }
 
     loadCampgrounds();
   </script>
 </body>
 </html>
+
 
 
