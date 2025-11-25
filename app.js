@@ -1,30 +1,31 @@
-// === 連線到 Supabase ===
-const SUPABASE_URL = "https://zwxgdbwmboukhedgsppo.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpnd2dkYndtYm91a2hlZGdzcHBvIiwiaWF0IjoxNjE0MDM2ODY0LCJleHAiOjE5MzU1MTI4NjR9._UZ7fPquN91Atwz36nqv4LhxJ2T8qy9_5kgc23hsn00";
+// 連線到 Supabase
+const SUPABASE_URL = "https://zwxgdwbmbouhkedgsppo.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3eGdkd2JtYm91aGtlZGdzcHBvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NTY2NzUsImV4cCI6MjA3OTIzMjY3NX0.U17RfPquN9I4twz36nqv1LWxJ2T0qy9_5xgc32hsnO0";
 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-
-// === 讀取 campgrounds 表 ===
+// 讀取 campgrounds 資料
 async function loadCampgrounds() {
-  const { data, error } = await supabase
-    .from("campgrounds")
-    .select("*");
+    const { data, error } = await supabase
+        .from("campgrounds")
+        .select("*");
 
-  if (error) {
-    console.error("載入失敗：", error);
-    return;
-  }
+    if (error) {
+        console.error("讀取失敗：", error);
+        return;
+    }
 
-  console.log("Campgrounds:", data);
+    console.log("Campgrounds:", data);
 
-  // 顯示到畫面（如果你的 index.html 有 #camp-list）
-  const list = document.getElementById("camp-list");
-  if (list) {
-    list.innerHTML = data.map(c => `<li>${c.name} - ${c.location}</li>`).join("");
-  }
+    const list = document.getElementById("camp-list");
+    if (list) {
+        list.innerHTML = data
+            .map(c => `<li>${c.name} - ${c.location}</li>`)
+            .join("");
+    }
 }
 
 // 自動執行
 loadCampgrounds();
+
 
