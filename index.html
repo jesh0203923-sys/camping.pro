@@ -10,11 +10,33 @@
   <h2>營地列表</h2>
   <ul id="camp-list"></ul>
 
-  <!-- 引入 Supabase SDK（必須） -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Supabase SDK -->
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
 
-  <!-- 你的 app.js（必須） -->
-  <script src="app.js"></script>
+    const SUPABASE_URL = "https://zwgdbwmbouhkedgsppo.supabase.co";
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...（你的 key ）";
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function loadCampgrounds() {
+      const { data, error } = await supabase
+        .from("campgrounds")
+        .select("*");
+
+      if (error) {
+        console.error("讀取失敗:", error);
+        return;
+      }
+
+      const list = document.getElementById("camp-list");
+      list.innerHTML = data.map(c => `<li>${c.name} - ${c.location}</li>`).join("");
+    }
+
+    loadCampgrounds();
+  </script>
 </body>
 </html>
+
 
